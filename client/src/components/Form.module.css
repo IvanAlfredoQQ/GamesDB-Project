@@ -1,0 +1,82 @@
+.div {
+  color: rgba(150, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: none;
+  margin: 1em;
+}
+
+.formBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 5px solid aqua;
+  border-radius: 15px;
+  max-width: 50%;
+  margin-left: 25%;
+  height: 600px;
+  margin-top: 5%;
+  overflow: hidden;
+}
+
+.label {
+  color: aqua;
+}
+.spanError {
+    color: #fd1bb2ee;
+  }
+
+.input {
+    color: rgba(255, 255, 0);
+  text-decoration: none;
+  border-style: hidden;
+  outline: none;
+  text-align: center;
+  background: rgba(255, 255, 255, 0);
+  border-bottom-style: solid;
+  border-bottom-color: rgba(0, 255, 255, 0.5);  
+  transition: all 0.2s ease;
+}
+
+.input:hover {
+    border-bottom-style: solid;
+    border-bottom-color: aqua;
+  }
+
+.h1 {
+  color: aqua;
+}
+
+.button {
+  --mycolor: rgba(0, 255, 255, 0.6);
+  font-weight: bold;
+  padding: 0.7em 2.7em;
+  letter-spacing: 0.06em;
+  font-family: inherit;
+  border-radius: 0.6em;
+  overflow: hidden;
+  transition: all 0.3s;
+  line-height: 1.4em;
+  border: 2px solid var(--mycolor);
+  background: linear-gradient(
+    to right,
+    rgba(27, 253, 242, 0.1) 1%,
+    transparent 40%,
+    transparent 60%,
+    rgba(27, 253, 242, 0.1) 100%
+  );
+  color: var(--mycolor);
+  box-shadow: inset 0 0 10px rgba(27, 253, 242, 0.3),
+    0 0 9px 3px rgba(27, 253, 242, 0.5);
+margin-top: 1em;
+}
+
+.button:hover {
+  color: aqua;
+  background: rgba(27, 253, 242, 0.4);
+  box-shadow: inset 0 0 10px rgba(27, 253, 242, 0.6),
+    0 0 9px 3px rgba(27, 253, 242, 0.2);
+}
