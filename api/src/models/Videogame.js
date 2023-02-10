@@ -26,9 +26,9 @@ module.exports = (sequelize) => {
       rating: {
         type: DataTypes.FLOAT,
       },
-      platforms: {
-        type: DataTypes.STRING,
-      },
+      /*platforms: {
+        type: DataTypes.STRING,   //I will create a new table to save all the platforms
+      },*/
       background_image: {
         type: DataTypes.STRING,
         allowNull: false,
