@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,   //I will create a new table to save all the platforms
       },*/
       background_image: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       createdByUser: {

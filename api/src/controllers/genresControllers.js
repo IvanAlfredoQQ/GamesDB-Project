@@ -9,6 +9,7 @@ const getGenresApi = async function () {
 
   if (genresInDb.length !== 0) {
     //if it has data
+    console.log("Genres data were loaded from DB")
     return (results = [...genresInDb]); //return data
   } else {//else get genres from API
     const genresApiResponse = (
@@ -22,6 +23,7 @@ const getGenresApi = async function () {
     });
     await Genre.bulkCreate(apiGenres);
     results = await Genre.findAll();
+    console.log("Genres data were loaded from API")
     return results;
   }
 };

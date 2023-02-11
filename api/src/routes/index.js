@@ -4,15 +4,13 @@ const { Router } = require("express");
 const gamesRouter = require("./gamesRouter");
 const gameRouter = require("./gameRouter");
 const genresRouter = require("./genresRouter");
+const platformsRouter = require("./platformsRouter")
 
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.get("/", (req, res) => {
-  res.status(200).send("Landing page");
-});
-
+router.use("/platforms", platformsRouter)
 router.use("/genres", genresRouter);
 router.use("/videogame", gameRouter); // => gameRouter.js => videogameHandler.js => gameControllers.js
 router.use("/videogames", gamesRouter); // => gamesRouter.js => videogamesHandler.js => gamesControllers.js
