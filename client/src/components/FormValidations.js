@@ -14,7 +14,6 @@ export function validate(form) {
     errors.release = "*Date format is wrong*"
   }
   //rating validation is controlled by input values
-
   //description
   if (!form.description) {
     errors.description = "*Description is required*";
@@ -30,6 +29,8 @@ export function validate(form) {
   } else {
     errors.background_image = "";
   }
+  //genres & platforms are controlled by input values
+  
   //return errors
   return errors;
 }

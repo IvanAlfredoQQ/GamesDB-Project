@@ -23,8 +23,8 @@ const getGenresApi = async function () {
     });
     await Genre.bulkCreate(apiGenres);
     results = await Genre.findAll();
-    console.log("Genres data were loaded from API")
-    return results;
+    console.log("Genres data were loaded from API into DB")
+    //return results;
   }
 };
 

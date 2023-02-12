@@ -18,10 +18,14 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
+const { getGenresApi } = require('./src/controllers/genresControllers.js');
+const { getAllPlatforms } = require('./src/controllers/platformsControllers.js');
 const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ alter: true }).then(() => {
+  getGenresApi()        //This functions executes when i start the backend sv in order to fill data in APP without calls from the Front
+  getAllPlatforms()     //
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });

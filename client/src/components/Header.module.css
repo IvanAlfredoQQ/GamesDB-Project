@@ -1,4 +1,13 @@
-.div{
-    color: rgba(150, 255, 255, 0.9);
-    background-color: rgba(0, 0, 0, 0.8);
+.div {
+  color: rgba(150, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.input {
+  color: black;
+}
+::placeholder {
+  color: black;
+}
+.button {
+  color: black;
 }

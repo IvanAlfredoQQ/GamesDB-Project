@@ -6,12 +6,12 @@ const gamesRouter = Router();
 //Middleware used to validate if all information required is given by user before the attempt to create a new game (Aligned to Videogame model)
 const validate = (req, res, next) => {
   const { name, description, release, rating, platforms, background_image } = req.body;
-  if (!name) return res.status(400).json({ error: "Missing name" });
-  if (!release) return res.status(400).json({ error: "Missing release" });
-  if (!rating) return res.status(400).json({ error: "Missing rating" });
-  if (!platforms) return res.status(400).json({ error: "Missing platforms" });
-  if (!description) return res.status(400).json({ error: "Missing description" }); 
-  if (!background_image) return res.status(400).json({ error: "Missing image" });  
+  if (!name) return res.status(400).json({ error: "Name is needed" });
+  if (!release) return res.status(400).json({ error: "Release is needed" });
+  if (!rating) return res.status(400).json({ error: "Rating is needed" });
+  if (!platforms) return res.status(400).json({ error: "Platforms is needed" });
+  if (!description) return res.status(400).json({ error: "Description is needed" }); 
+  if (!background_image) return res.status(400).json({ error: "Image is needed" });  
   next();
 };
 

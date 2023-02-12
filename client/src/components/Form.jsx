@@ -1,24 +1,43 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+
 import styles from "./Form.module.css";
-import {validate} from "./FormValidations" //import validations
+import { validate } from "./FormValidations"; //import validations
+import { useDispatch, useSelector } from "react-redux";
+import { postGame, getGenres, getPlatforms } from "../redux/actions";
 
 export default function Form() {
+  const dispatch = useDispatch();
+  // eslint-disable-next-line
+  const allGenres = useSelector((state)=>state.genres)
+  // eslint-disable-next-line
+  const allPlatforms = useSelector((state)=>state.platforms)
+  console.log()
   const [form, setForm] = useState({
     name: "",
     description: "",
     release: "",
     rating: "",
     background_image: "",
+    genres: [],
+    platforms: [],
   });
-
   const [errors, setErrors] = useState({
     name: "",
     description: "",
     release: "",
-    rating: "",
+    //rating: "", //This will never get an error / HTML <input> is preventing no desired data
     background_image: "",
+    genres: [],
+    platforms: [],
   });
+  
+  console.log(allGenres)
+  console.log(allPlatforms)
+  
+  useEffect( () => {
+      dispatch(getGenres());
+      dispatch(getPlatforms());   // ASK: HOW TO PROPERLY GET DATA?
+  },[dispatch]);
 
   function onChange(event) {
     //setForm({...form, [event.target.name]:event.target.value}) //without destructuring each value
@@ -26,30 +45,47 @@ export default function Form() {
     const value = event.target.value;
     //validate(form) //This didn't work well, it's desync because it first validates "form" and after that setForm makes the input change (so the input i just made it's readed by "validate" in the next change)
     setForm({ ...form, [property]: value });
-    setErrors(validate({ ...form, [property]: value })); //so.. i gave validate the same state that is going to be set in this cycle, and modularize validate 
+    setErrors(validate({ ...form, [property]: value })); //so.. i gave validate the same state that is going to be set in this cycle, and modularize validate
   }
 
-  
+  function checkboxChange(event) {
+    const property = event.target.name;
+    const value = event.target.value;
+    let checkboxUpdate = [...form[property]]
+    if(event.target.checked){
+      checkboxUpdate = [...form[property], value]
+    }else{
+      checkboxUpdate.splice(form[property].indexOf(value),1);
+    }
+    setForm({...form, [property]:checkboxUpdate})
+  }
 
   function submitHandler(event) {
     event.preventDefault();
-    axios
-      .post("http://localhost:3001/videogames", form) //i send form to my backend, with the obj "form"
-      .then((res) => alert(res.data))
-      .catch((err) => alert(err));
+    dispatch(postGame(form));
+    setForm({
+      name: "",
+      description: "",
+      released: "",
+      background_image: "",
+      rating: "",
+      genres: [],
+      platforms: [],
+    });
   }
 
   return (
     <div className={styles.formBox}>
       <h1 className={styles.h1}>Create game</h1>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={(e)=>{submitHandler(e)}}>
         <div className={styles.div}>
           <label className={styles.label}>Name</label>
           <input
             className={styles.input}
+            placeholder="Videogame name"
             type="text"
             value={form.name}
-            onChange={onChange}
+            onChange={(e)=>onChange(e)}
             name="name"
           />
           {errors.name && (
@@ -64,9 +100,10 @@ export default function Form() {
             className={styles.input}
             type="text"
             value={form.release}
-            onChange={onChange}
+            onChange={(e)=>onChange(e)}
             name="release"
-          />{errors.release && (
+          />
+          {errors.release && (
             <span className={styles.spanError}>{errors.release}</span>
           )}
         </div>
@@ -81,18 +118,18 @@ export default function Form() {
             max="5" //this will restrain submit until this receive a correct value (words aren't allowed either)
             step=".01" //this allows 2 decimals. I used this to simplifies the "validation" so i don't have to use a Regex
             value={form.rating}
-            onChange={onChange}
+            onChange={(e)=>onChange(e)}
             name="rating"
           />
         </div>
 
         <div className={styles.div}>
-          <label className={styles.label}>Background image</label>
+          <label className={styles.label}>Background image (URL)</label>
           <input
             className={styles.input}
             type="text"
             value={form.background_image}
-            onChange={onChange}
+            onChange={(e)=>onChange(e)}
             name="background_image"
           />
           {errors.background_image && (
@@ -109,17 +146,30 @@ export default function Form() {
             className={styles.input}
             type="text"
             value={form.description}
-            onChange={onChange}
+            onChange={(e)=>onChange(e)}
             name="description"
-          />{errors.description && (
+          />
+          {errors.description && (
             <span className={styles.spanError}>{errors.description}</span>
           )}
+        </div>
+        
+        <div className={styles.div} title="Container List">
+          <label className={styles.label}>Genres</label>
+            <div className={styles.div} title="Genres Container">
+              {allGenres.map((e)=>(<div id={e.id}><input type="checkbox" name="genres" onChange={(e)=>{checkboxChange(e)}} value={e.name}/><span>{e.name}</span></div>))}
+            </div>
+            <label className={styles.label}>Platforms</label>
+            <div className={styles.div} title="Platforms Container">
+              {allPlatforms.map((e)=>(<div id={e.id}><input type="checkbox" name="platforms" onChange={(e)=>{checkboxChange(e)}} value={e.name}/><span>{e.name}</span></div>))}
+            </div>
         </div>
 
         <button type="submit" className={styles.button}>
           Submit
         </button>
       </form>
+
     </div>
   );
 }

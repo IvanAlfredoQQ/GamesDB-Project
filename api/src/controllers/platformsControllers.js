@@ -4,7 +4,13 @@ const { Platforms } = require("../db");
 
 const getAllPlatforms = async function(){
     let results = []
-    const apiData = await getApiGames(2) //I just call 2 pages in order to make request faster because a lot of platforms repeats and barely adds 1 or 2 more
+    const platformsInDb = await Platforms.findAll();
+
+    if(platformsInDb.length !== 0){
+        console.log("Platforms request")
+        return results = [... platformsInDb]
+    }
+    const apiData = await getApiGames(5) //I just call 2 pages in order to make request faster because a lot of platforms repeats and barely adds 1 or 2 more
     let gamesPlatforms = apiData.map((game)=> game.platforms.map((e)=> e.platform.name))
     //console.log(gamesPlatforms)
     //Filter from the Array of Arrays, all the platforms that do not repeat
@@ -17,7 +23,8 @@ const getAllPlatforms = async function(){
     );
     
     results.forEach((e)=> Platforms.findOrCreate( { where: {name:e} } ))
-    return await Platforms.findAll();
+    console.log("Platforms types were loaded from VIDEOGAMES into DB")
+    //return await Platforms.findAll();
 }
 
 module.exports = { getAllPlatforms}

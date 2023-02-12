@@ -1,11 +1,44 @@
-import axios from "axios"
+import axios from "axios";
 
-export const GET_GAMES = "GET_GAMES"
+export const GET_GAMES = "GET_GAMES",  POST_GAME = "POST_GAME", IS_LOADING="IS_LOADING", GET_GENRES="GET_GENRES", GET_PLATFORMS="GET_PLATFORMS"
 
-export function getGames(){
-    return async function(dispatch){
-        const apiData = await axios.get("http://localhost:3001/videogames");
-        const games = apiData.data;
-        dispatch({type: GET_GAMES, payload: games})
+export function getGames() {
+  return async function (dispatch) {
+    try {
+      const games = (await axios.get("http://localhost:3001/videogames")).data;
+      dispatch({ type: GET_GAMES, payload: games });
+    } catch (error) {}
+  };
+}
+export function getGenres() {
+    return async function (dispatch) {
+      try {
+        const genres = (await axios.get("http://localhost:3001/genres")).data;
+        dispatch({ type: GET_GENRES, payload: genres });
+      } catch (error) {}
+    };
+  }
+  export function getPlatforms() {
+    return async function (dispatch) {
+      try {
+        const platforms = (await axios.get("http://localhost:3001/platforms")).data;
+        dispatch({ type: GET_PLATFORMS, payload: platforms });
+      } catch (error) {}
+    };
+  }
+
+export function postGame(bodyData) {
+    return async function(){
+        try {
+            let postGame = axios.post("http://localhost:3001/videogames",bodyData)
+            alert("¡Videogame created!")
+            return postGame
+        } catch (error){
+            alert("Error: " + error)
+        }
     }
-} 
+}
+
+export function changeLoading(){
+    return {type: IS_LOADING, payload: true}
+}
