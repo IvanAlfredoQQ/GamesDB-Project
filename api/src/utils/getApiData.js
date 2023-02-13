@@ -26,6 +26,7 @@ const relevantData = function (array) {
         description: element.description,
         release: element.release,
         rating: element.rating,
+        genres: element.genres,
         platforms: element.platforms,
         background_image: element.background_image,
         createdByUser: false, // DB values have this property set as default = true, so... API's items will have this property created and setted as false;

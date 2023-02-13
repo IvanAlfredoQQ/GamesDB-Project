@@ -1,7 +1,8 @@
-import { GET_GAMES, IS_LOADING, GET_PLATFORMS, GET_GENRES } from "./actions";
+import { GET_GAMES, IS_LOADING, GET_PLATFORMS, GET_GENRES, GET_DETAILS } from "./actions";
 
 const initialState = {
   games: [],
+  gameDetails: {},
   genres: [],
   platforms: [],
   isLoading: false,
@@ -10,7 +11,10 @@ const initialState = {
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_GAMES:
-      return { ...state, games: action.payload, isLoading: false };
+      return { ...state, games: action.payload, isLoading:false };
+
+    case GET_DETAILS:
+      return { ...state, gameDetails: {...action.payload}, isLoading:false};
 
     case GET_GENRES:
       return { ...state, genres: action.payload };

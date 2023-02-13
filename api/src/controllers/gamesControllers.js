@@ -34,12 +34,12 @@ const namedGame = async function (name) {
 const allGames = async function () {
   let apiGamesResults = [];
 
-  const databaseGames = await Videogame.findAll();        //This promise return an array of all items in DB
-  apiGamesResults = await getApiGames(5)                   //This function brings 100 filtered games from API with specified data for my APP
-  //console.log(apiGamesResults.length)                   //checking if this gets 100 results
+  const databaseGames = await Videogame.findAll();    //This promise return an array of all items in DB
+  apiGamesResults = await getApiGames(5)              //This function brings 100 filtered games from API with specified data for my APP
+  //console.log(apiGamesResults.length)               //checking if this gets 100 results
 
   const results = [...databaseGames, ...apiGamesResults]; //Concat data...
-  console.log(results)
+  //console.log(results)
   return results;
 };
 

@@ -6,7 +6,7 @@ export default function Landing() {
   return (
     <div className={styles.div}>      
       <h1 className={styles.h1}>Henry Videogames Proyect</h1>
-      <Link to="/home"><button className={styles.button}>Ingresar</button></Link>
+      <Link to="/videogames"><button className={styles.button}>Ingresar</button></Link>
     </div>
   );
 }

@@ -5,7 +5,8 @@ import Landing from "./components/Landing";
 import Home from "./components/Home";
 import Header from "./components/Header";
 import Form from "./components/Form";
-import Error from "./components/Error"
+import Error from "./components/Error";
+import GameDetail from "./components/GameDetail"
 
 function App() {
   const location = useLocation();
@@ -22,7 +23,8 @@ function App() {
         <Routes>
           <Route path="/*" element={<Error/>} />
           <Route exact path="/" element={<Landing />}></Route>
-          <Route path="/home" element={<Home />}></Route>
+          <Route path="/videogames" element={<Home />}></Route>
+          <Route path="/videogame/:id" element={<GameDetail/>}></Route>
           <Route path="/form" element={<Form />}></Route>
         </Routes>
       </div>

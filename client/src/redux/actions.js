@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GET_GAMES = "GET_GAMES",  POST_GAME = "POST_GAME", IS_LOADING="IS_LOADING", GET_GENRES="GET_GENRES", GET_PLATFORMS="GET_PLATFORMS"
+export const GET_GAMES = "GET_GAMES",  POST_GAME = "POST_GAME", IS_LOADING="IS_LOADING", GET_GENRES="GET_GENRES", GET_PLATFORMS="GET_PLATFORMS", GET_DETAILS="GET_DETAILS"
 
 export function getGames() {
   return async function (dispatch) {
@@ -10,6 +10,16 @@ export function getGames() {
     } catch (error) {}
   };
 }
+
+export function getGameDetails(id) {
+  return async function (dispatch) {
+    try {
+      const details = (await axios.get(`http://localhost:3001/videogame/${id}`)).data;
+      dispatch({ type: GET_DETAILS, payload: details });
+    } catch (error) {}
+  };
+}
+
 export function getGenres() {
     return async function (dispatch) {
       try {
@@ -40,5 +50,6 @@ export function postGame(bodyData) {
 }
 
 export function changeLoading(){
-    return {type: IS_LOADING, payload: true}
+    return function(dispatch){
+    dispatch({type: IS_LOADING, payload: true})}
 }

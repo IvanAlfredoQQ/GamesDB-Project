@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-
 import styles from "./Form.module.css";
 import { validate } from "./FormValidations"; //import validations
 import { useDispatch, useSelector } from "react-redux";
-import { postGame, getGenres, getPlatforms } from "../redux/actions";
+import { postGame, changeLoading, getGenres, getPlatforms } from "../redux/actions";
+
 
 export default function Form() {
   const dispatch = useDispatch();
-  // eslint-disable-next-line
   const allGenres = useSelector((state)=>state.genres)
-  // eslint-disable-next-line
   const allPlatforms = useSelector((state)=>state.platforms)
   console.log()
   const [form, setForm] = useState({
@@ -25,18 +23,16 @@ export default function Form() {
     name: "",
     description: "",
     release: "",
-    //rating: "", //This will never get an error / HTML <input> is preventing no desired data
+    //rating: "", //This will never get an error / HTML <input> is preventing "no desired" data
     background_image: "",
     genres: [],
     platforms: [],
   });
-  
-  console.log(allGenres)
-  console.log(allPlatforms)
-  
+    
   useEffect( () => {
-      dispatch(getGenres());
-      dispatch(getPlatforms());   // ASK: HOW TO PROPERLY GET DATA?
+    dispatch(changeLoading());
+    dispatch(getGenres());
+    dispatch(getPlatforms());
   },[dispatch]);
 
   function onChange(event) {
