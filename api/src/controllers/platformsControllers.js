@@ -10,9 +10,8 @@ const getAllPlatforms = async function(){
         console.log("Platforms request")
         return results = [... platformsInDb]
     }
-    const apiData = await getApiGames(5) //I just call 2 pages in order to make request faster because a lot of platforms repeats and barely adds 1 or 2 more
-    let gamesPlatforms = apiData.map((game)=> game.platforms.map((e)=> e.platform.name))
-    //console.log(gamesPlatforms)
+    const apiData = await getApiGames(2) //I just call 2 pages in order to make request faster because a lot of platforms repeats and barely adds 1 or 2 more
+    let gamesPlatforms = apiData.map((game)=> game.platforms.map((e)=> e.name))
     //Filter from the Array of Arrays, all the platforms that do not repeat
     gamesPlatforms.map((element) =>
     element.forEach((platform) => {

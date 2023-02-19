@@ -17,9 +17,10 @@ const gamesHandler = async (req, res) => {
 };
 
 const postGamesHandler = async (req, res) => {
-  const { name, description, release, rating, platforms, background_image } = req.body;
+  const { name, description, release, rating, genres, platforms, background_image } = req.body;
+
   try {
-    const newGame = await createGame(name, description, release, rating, platforms, background_image)
+    const newGame = await createGame(name, description, release, rating, genres, platforms, background_image)
     res.status(201).json(newGame)
   } catch (error) {
     res.status(400).json({error: error.message});

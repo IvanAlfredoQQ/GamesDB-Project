@@ -1,28 +1,28 @@
 import "./App.css";
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, /*useLocation*/ } from "react-router-dom";
 import Landing from "./components/Landing";
 import Home from "./components/Home";
-import Header from "./components/Header";
+// import Header from "./components/Header";
 import Form from "./components/Form";
 import Error from "./components/Error";
 import GameDetail from "./components/GameDetail"
 
 function App() {
-  const location = useLocation();
+  
+// const location = useLocation();  
 
   return (
     <div className="App">
       <div style={{ padding: "20px" }}>
         {/*Container DIV*/}
-        <div>
+        {/* <div>
           {" "}
-          {/*HEADER DIV*/}
-          {location.pathname !== "/" ? <Header /> : null}
-        </div>
+          {location.pathname === "/videogames" ? <Header /> : null}
+        </div> */}
         <Routes>
           <Route path="/*" element={<Error/>} />
-          <Route exact path="/" element={<Landing />}></Route>
+          <Route exact path="/" element={<Landing/>}></Route>
           <Route path="/videogames" element={<Home />}></Route>
           <Route path="/videogame/:id" element={<GameDetail/>}></Route>
           <Route path="/form" element={<Form />}></Route>

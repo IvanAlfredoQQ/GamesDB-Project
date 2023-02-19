@@ -10,15 +10,13 @@ const getApiGames = async function (pages) {
     while (index <= pages) {
       // Each page has 20 games so i will bring 5 pages to get the first 100 games in the API
       const currentPage = (await axios.get(`https://api.rawg.io/api/games?key=${MY_KEY}&page=${index}`)).data.results;
-      const currentPageFilter = relevantData(currentPage); //filter data...
-      apiGamesResults = [...apiGamesResults, ...currentPageFilter];
+      apiGamesResults = [...apiGamesResults, ...currentPage];
       index++;
-    }  
-    const results = [...apiGamesResults]; //Concat data...
+    } 
+    const results = modelApiData(apiGamesResults); //Giving relevant data, the same structure of my db data 
     return results;}
 
-    //Function used to filter API data
-const relevantData = function (array) {
+const modelApiData = function (array) { //This function it's not the same as the "relevantData" function executed before getting all games
     const myData = array.map((element) => {
       return {
         id: element.id,
@@ -27,7 +25,7 @@ const relevantData = function (array) {
         release: element.release,
         rating: element.rating,
         genres: element.genres,
-        platforms: element.platforms,
+        platforms: element.platforms.map((e)=> {return e.platform}),
         background_image: element.background_image,
         createdByUser: false, // DB values have this property set as default = true, so... API's items will have this property created and setted as false;
       };

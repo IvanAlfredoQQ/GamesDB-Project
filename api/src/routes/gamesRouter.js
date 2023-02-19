@@ -9,8 +9,6 @@ const validate = (req, res, next) => {
   if (!name) return res.status(400).json({ error: "Name is needed" });
   if (!release) return res.status(400).json({ error: "Release is needed" });
   if (!rating) return res.status(400).json({ error: "Rating is needed" });
-  if (platforms.length !== 0) return res.status(400).json({ error: "Platforms are needed" }); //added
-  if (genres.length !== 0) return res.status(400).json({ error: "Genres are needed" });       //added
   if (!description) return res.status(400).json({ error: "Description is needed" }); 
   if (!background_image) return res.status(400).json({ error: "Image is needed" });  
   next();

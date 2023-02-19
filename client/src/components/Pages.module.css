@@ -1,0 +1,27 @@
+.button {
+  padding: 10px;
+  margin: 0.2em;
+  border: 2px solid rgb(26, 26, 26);
+  border-radius: 0.6em;
+  color: rgba(0, 255, 200, 1);
+  font-weight: solid;
+  background-color: rgba(50, 50, 50, 0.8);
+}
+.buttonStatic {
+  padding: 10px;
+  margin: 0.2em;
+  border: 2px solid rgb(26, 26, 26);
+  border-radius: 0.6em;
+  color: rgba(0, 255, 200, 1);
+  font-weight: solid;
+  background-color: rgba(50, 50, 50, 0.8);
+}
+.button:hover {
+  color: rgba(0, 255, 200, 1);
+  background: rgba(27, 253, 242, 0.4);
+  box-shadow: inset 0 0 10px rgba(27, 253, 242, 0.6),
+    0 0 9px 3px rgba(27, 253, 242, 0.2);
+}
+.pageContainer{
+    padding: 1rem;
+}

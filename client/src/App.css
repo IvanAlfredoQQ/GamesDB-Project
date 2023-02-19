@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   background-image: url("E:\PI-Videogames-main\client\src\img\bg.jpg");
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
@@ -30,7 +31,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: rgba(0, 255, 200, 1);;
 }
 
 @keyframes App-logo-spin {

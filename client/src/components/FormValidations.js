@@ -3,8 +3,6 @@ export function validate(form) {
   //name
   if (form.name === "") {
     errors.name = "*Name is required*";
-  } else {
-    errors.name = "";
   }
   //release
  if(!form.release){
@@ -26,8 +24,6 @@ export function validate(form) {
     !/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/.test(form.background_image)
   ) {
     errors.background_image = "*URL format is wrong*";
-  } else {
-    errors.background_image = "";
   }
   //genres & platforms are controlled by input values
   

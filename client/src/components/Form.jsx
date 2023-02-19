@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Form.module.css";
 import { validate } from "./FormValidations"; //import validations
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postGame, changeLoading, getGenres, getPlatforms } from "../redux/actions";
+import { postGame, changeLoading, getGames, getGenres, getPlatforms } from "../redux/actions";
 
 
 export default function Form() {
@@ -68,16 +69,24 @@ export default function Form() {
       genres: [],
       platforms: [],
     });
+    dispatch(getGames());
+    dispatch(changeLoading());
+
   }
 
   return (
-    <div className={styles.formBox}>
+    <>
+    <div className={styles.back}><NavLink to={`/videogames`} className={styles.buttonActive}>
+    Back
+  </NavLink></div>
+    <div className={styles.divCard}>
+        <div className={styles.divCard2}>
       <h1 className={styles.h1}>Create game</h1>
       <form onSubmit={(e)=>{submitHandler(e)}}>
         <div className={styles.div}>
           <label className={styles.label}>Name</label>
           <input
-            className={styles.input}
+            className={styles.inputs}
             placeholder="Videogame name"
             type="text"
             value={form.name}
@@ -93,7 +102,7 @@ export default function Form() {
           <label className={styles.label}>Release date</label>
           <input
             placeholder="YYYY-MM-DD"
-            className={styles.input}
+            className={styles.inputs}
             type="text"
             value={form.release}
             onChange={(e)=>onChange(e)}
@@ -107,7 +116,7 @@ export default function Form() {
         <div className={styles.div}>
           <label className={styles.label}>Rating</label>
           <input
-            className={styles.input}
+            className={styles.inputs}
             placeholder="0,00 - 5,00"
             type="number"
             min="0" //restrics input between 0 up to 5
@@ -122,7 +131,7 @@ export default function Form() {
         <div className={styles.div}>
           <label className={styles.label}>Background image (URL)</label>
           <input
-            className={styles.input}
+            className={styles.inputs}
             type="text"
             value={form.background_image}
             onChange={(e)=>onChange(e)}
@@ -139,7 +148,7 @@ export default function Form() {
             placeholder="Description of the game..."
             cols="50"
             rows="4"
-            className={styles.input}
+            className={styles.inputs}
             type="text"
             value={form.description}
             onChange={(e)=>onChange(e)}
@@ -152,20 +161,22 @@ export default function Form() {
         
         <div className={styles.div} title="Container List">
           <label className={styles.label}>Genres</label>
-            <div className={styles.div} title="Genres Container">
-              {allGenres.map((e)=>(<div id={e.id}><input type="checkbox" name="genres" onChange={(e)=>{checkboxChange(e)}} value={e.name}/><span>{e.name}</span></div>))}
+            <div className={styles.checkbox} title="Genres Container">
+              {allGenres.map((e)=>(<div id={e.id} className={styles.tag} ><input type="checkbox" name="genres" onChange={(e)=>{checkboxChange(e)}} value={e.name}/><span>{e.name}</span></div>))}
             </div>
             <label className={styles.label}>Platforms</label>
-            <div className={styles.div} title="Platforms Container">
-              {allPlatforms.map((e)=>(<div id={e.id}><input type="checkbox" name="platforms" onChange={(e)=>{checkboxChange(e)}} value={e.name}/><span>{e.name}</span></div>))}
+            <div className={styles.checkbox} title="Platforms Container">
+              {allPlatforms.map((e)=>(<div id={e.id} className={styles.tag} ><input type="checkbox" name="platforms" onChange={(e)=>{checkboxChange(e)}} value={e.name}/><span>{e.name}</span></div>))}
             </div>
         </div>
 
-        <button type="submit" className={styles.button}>
+        <button type="submit" disabled={Object.entries(errors).length !== 0 ? "disabled" : null} className={Object.entries(errors).length !== 0 ? styles.buttonDisable : styles.buttonActive}>
           Submit
         </button>
       </form>
 
+      </div>
     </div>
+    </>
   );
 }
